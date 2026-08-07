@@ -130,6 +130,15 @@ body {
   background-color: #1d4ed8;
 }
 
+/* Atualize o bloco de grid para abranger os formulários de forma padronizada */
+.service-form {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1.5fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
 .services-grid {
   display: flex;
   flex-direction: column;
@@ -178,4 +187,60 @@ body {
 
 .btn-icon.danger:hover {
   background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* css/dashboard.css (Adições para Agendamentos) */
+
+#appointment-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  gap: 1rem;
+  align-items: flex-end;
+}
+
+@media (max-width: 1024px) {
+  #appointment-form {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  #appointment-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Estilização para listagem de agendamentos futuros, se houver */
+.appointment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--background-color);
+  margin-bottom: 0.75rem;
+}
+
+.appointment-info h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.appointment-info p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 1200px) {
+  .service-form {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-form {
+    grid-template-columns: 1fr;
+  }
 }
