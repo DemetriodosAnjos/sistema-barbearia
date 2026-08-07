@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbearia MVP - Acesso</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <!-- SDK do Supabase via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1 id="form-title">Entrar no Sistema</h1>
+          <p id="form-subtitle">Gerencie sua barbearia de forma simples</p>
+        </div>
+
+        <!-- Formulário único que alterna o comportamento via JS -->
+        <form id="auth-form">
+          <!-- Campo exclusivo para Cadastro (Nome do Salão) -->
+          <div class="input-group" id="salon-name-group" style="display: none">
+            <label for="salon-name">Nome da Barbearia</label>
+            <input
+              type="text"
+              id="salon-name"
+              placeholder="Ex: Barbearia do João"
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="email">E-mail</label>
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="seu@email.com"
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="password">Senha</label>
+            <input
+              type="password"
+              id="password"
+              required
+              placeholder="••••••••"
+            />
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn-primary">
+            Entrar
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p id="toggle-text">
+            Não tem uma conta? <a href="#" id="toggle-mode">Cadastre-se</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts estruturados em módulos -->
+    <script type="module" src="js/pages/login.js"></script>
+  </body>
+</html>

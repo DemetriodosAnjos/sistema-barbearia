@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbearia MVP - Painel</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <!-- SDK do Supabase via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+    <header class="dashboard-header">
+      <div class="header-content">
+        <h1 id="salon-title">Carregando salão...</h1>
+        <button id="logout-btn" class="btn-secondary">Sair</button>
+      </div>
+    </header>
+
+    <main class="dashboard-main">
+      <section class="welcome-section">
+        <h2 id="salon-name-display">Carregando...</h2>
+        <p>Gerencie seus serviços e horários por aqui.</p>
+      </section>
+
+      <!-- Seção de Gestão de Serviços -->
+      <section class="card-section">
+        <h3>Gerenciar Serviços</h3>
+
+        <!-- Formulário para Incluir/Editar Serviço -->
+        <form id="service-form" class="service-form">
+          <input type="hidden" id="service-id" />
+          <div class="form-group">
+            <label for="service-name">Descrição do Serviço</label>
+            <input
+              type="text"
+              id="service-name"
+              placeholder="Ex: Corte Masculino"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="service-price">Preço (R$)</label>
+            <input
+              type="number"
+              step="0.01"
+              id="service-price"
+              placeholder="30.00"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="service-duration">Duração (minutos)</label>
+            <select id="service-duration" required>
+              <option value="15">15 min</option>
+              <option value="30" selected>30 min</option>
+              <option value="45">45 min</option>
+              <option value="60">60 min (1h)</option>
+            </select>
+          </div>
+          <button type="submit" id="save-service-btn" class="btn-primary">
+            Adicionar Serviço
+          </button>
+          <button
+            type="button"
+            id="cancel-edit-btn"
+            class="btn-secondary"
+            style="display: none"
+          >
+            Cancelar
+          </button>
+        </form>
+
+        <!-- Lista de Serviços Cadastrados -->
+        <div class="services-list-container">
+          <h4>Serviços Disponíveis</h4>
+          <div id="services-list" class="services-grid">
+            <p class="text-muted">Carregando serviços...</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Scripts estruturados em módulos -->
+    <script type="module" src="js/pages/dashboard.js"></script>
+  </body>
+</html>
