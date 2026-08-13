@@ -1,0 +1,203 @@
+/* Container principal do Modal de Novo Agendamento */
+#novo-agendamento-modal.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+#novo-agendamento-modal.hidden {
+  display: none !important;
+}
+
+/* Caixa de Conteúdo do Modal */
+#novo-agendamento-modal .modal-content {
+  background-color: #1e293b;
+  color: #f8fafc;
+  width: 100%;
+  max-width: 480px;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabeçalho do Modal */
+#novo-agendamento-modal .modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 12px;
+  width: 100%;
+}
+
+.btn-submit {
+  padding: 0.6rem 1.2rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-submit:hover {
+  background-color: #1d4ed8;
+}
+
+#novo-agendamento-modal .modal-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+#novo-agendamento-modal .close-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+#novo-agendamento-modal .close-btn:hover {
+  color: #f8fafc;
+}
+
+/* Formulário em Coluna */
+#novo-agendamento-modal #appointment-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Grupos de Formulário */
+#novo-agendamento-modal .form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+#novo-agendamento-modal .form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+#novo-agendamento-modal .form-group input,
+#novo-agendamento-modal .form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  color: #f8fafc;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+#novo-agendamento-modal .form-group input:focus,
+#novo-agendamento-modal .form-group select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Ações / Botões do Modal em Coluna */
+#novo-agendamento-modal .modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  width: 100%;
+}
+
+#novo-agendamento-modal .modal-actions button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+#novo-agendamento-modal .btn-secondary {
+  background-color: #334155;
+  color: #f8fafc;
+}
+
+#novo-agendamento-modal .btn-secondary:hover {
+  background-color: #475569;
+}
+
+#novo-agendamento-modal .btn-submit {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+#novo-agendamento-modal .btn-submit:hover {
+  background-color: #2563eb;
+}
+
+/* Ajustes Responsivos para Dispositivos Móveis */
+@media (max-width: 600px) {
+  #novo-agendamento-modal.modal-overlay {
+    padding: 0;
+    justify-content: flex-end; /* Posiciona o modal na parte inferior em telas pequenas */
+  }
+
+  #novo-agendamento-modal .modal-content {
+    max-width: 100%;
+    max-height: 90vh;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    padding: 20px 16px;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  #novo-agendamento-modal .modal-actions {
+    flex-direction: column-reverse; /* Inverte a ordem para o botão principal ficar no topo do polegar se preferir, ou mantenha column */
+    gap: 8px;
+  }
+
+  #novo-agendamento-modal .modal-actions button {
+    padding: 14px; /* Aumenta a área de toque no mobile */
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

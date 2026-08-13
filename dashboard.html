@@ -7,6 +7,9 @@
     <!-- Estilos -->
     <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/novoAgendamento.css" />
+    <link rel="stylesheet" href="css/header.css" />
+    <link rel="stylesheet" href="css/semana.css" />
     <!-- SDK do Supabase via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   </head>
@@ -19,10 +22,76 @@
     </header>
 
     <main class="dashboard-main">
-      <section class="welcome-section">
-        <h2 id="salon-name-display">Carregando...</h2>
-        <p>Gerencie seus serviços e horários por aqui.</p>
+      <section class="calendar-section">
+        <!-- Header de Filtros -->
+        <div class="calendar-header">
+          <div class="filter-group week-navigation">
+            <label for="toggle-week-view">
+              <input type="checkbox" id="toggle-week-view" />
+              Semana:
+            </label>
+            <button id="btn-prev-week" class="btn-icon" title="Semana Anterior">
+              ◀
+            </button>
+            <button id="btn-next-week" class="btn-icon" title="Próxima Semana">
+              ▶
+            </button>
+          </div>
+
+          <div class="filter-group date-range">
+            <div>
+              <label for="date-start">Início:</label>
+              <input type="date" id="date-start" class="input-control" />
+            </div>
+            <div>
+              <label for="date-end">Fim:</label>
+              <input type="date" id="date-end" class="input-control" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Grid do Calendário -->
+        <div class="calendar-grid-wrapper">
+          <div class="weekdays-header">
+            <span>Dom</span>
+            <span>Seg</span>
+            <span>Ter</span>
+            <span>Qua</span>
+            <span>Qui</span>
+            <span>Sex</span>
+            <span>Sáb</span>
+          </div>
+          <div id="calendar-days" class="calendar-days-grid">
+            <!-- Os dias serão injetados via JavaScript -->
+          </div>
+        </div>
       </section>
+
+      <!-- Subtela / Modal de Detalhes do Agendamento -->
+      <div id="appointment-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+          <button id="close-modal" class="btn-close">&times;</button>
+          <h3>Detalhes do Agendamento</h3>
+          <div id="appointment-details">
+            <!-- Conteúdo injetado via JS: Nome, Telefone, Serviço, Valor, Data/Hora -->
+          </div>
+        </div>
+      </div>
+
+      <section class="card-section">
+        <h3>Agendamentos Futuros</h3>
+        <div id="appointments-list" class="services-grid">
+          <p class="text-muted">Carregando agendamentos...</p>
+        </div>
+      </section>
+
+      <!-- Modal Overlay para Spinner de Carregamento -->
+      <div id="loading-modal" class="modal-overlay hidden">
+        <div class="modal-content loading-modal-content">
+          <div class="spinner-border" role="status"></div>
+          <p id="loading-text">Salvando novo agendamento...</p>
+        </div>
+      </div>
 
       <!-- Seção de Gestão de Serviços -->
       <section class="card-section">
@@ -78,54 +147,6 @@
           <div id="services-list" class="services-grid">
             <p class="text-muted">Carregando serviços...</p>
           </div>
-        </div>
-      </section>
-
-      <section class="card-section">
-        <h3>Novo Agendamento</h3>
-        <form id="appointment-form" class="service-form">
-          <div class="form-group">
-            <label for="appt-service">Serviço</label>
-            <select id="appt-service" required>
-              <option value="">Selecione...</option>
-            </select>
-          </div>
-
-          <div class="form-group">
-            <label for="appt-client">Nome do Cliente</label>
-            <input type="text" id="appt-client" placeholder="Nome" required />
-          </div>
-
-          <div class="form-group">
-            <label for="appt-phone">WhatsApp</label>
-            <input
-              type="tel"
-              id="appt-phone"
-              placeholder="(00) 00000-0000"
-              required
-            />
-          </div>
-
-          <div class="form-group">
-            <label for="appt-date">Data</label>
-            <input type="date" id="appt-date" required />
-          </div>
-
-          <div class="form-group">
-            <label for="appt-time">Horário</label>
-            <select id="appt-time" required>
-              <!-- Preenchido via JS -->
-            </select>
-          </div>
-
-          <button type="submit" class="btn-primary">Agendar</button>
-        </form>
-      </section>
-
-      <section class="card-section">
-        <h3>Agendamentos Futuros</h3>
-        <div id="appointments-list" class="services-grid">
-          <p class="text-muted">Carregando agendamentos...</p>
         </div>
       </section>
     </main>

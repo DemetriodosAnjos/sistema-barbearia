@@ -25,6 +25,300 @@ body {
   color: var(--text-color);
 }
 
+/* Container Principal do Calendário */
+.calendar-section {
+  background-color: var(--surface-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+}
+
+/* Header e Filtros */
+.calendar-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.select-control,
+.input-control {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  fill: #fff;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  background-color: var(--surface-color);
+}
+
+/* Container do Calendário */
+.calendar-section {
+  background-color: #1e293b; /* Tom escuro harmônico com o painel */
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #334155;
+}
+
+/* Grid do Calendário */
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.calendar-day-cell:hover {
+  border-color: #3b82f6;
+  background-color: #1e293b;
+}
+
+/* Células vazias (espaçamento do mês) */
+.calendar-day-cell.empty {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+/* Número do dia */
+.day-number {
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #94a3b8;
+}
+
+/* Célula com agendamento */
+.calendar-day-cell.has-appointment {
+  background-color: #1e3a8a; /* Azul escuro de destaque */
+  border-color: #3b82f6;
+}
+
+.calendar-day-cell.has-appointment .day-number {
+  color: #ffffff;
+}
+
+/* Badge indicadora de agendamentos */
+.appointment-badge {
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: auto;
+}
+
+/* ==========================================
+   ESTILOS DA SUBTELA / MODAL DE AGENDAMENTOS
+   ================================---------- */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 23, 42, 0.75); /* Fundo escuro translúcido */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: #1e293b; /* Fundo escuro consistente com o dashboard */
+  border: 1px solid #334155;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 480px;
+  position: relative;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  color: #f8fafc;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  color: #ffffff;
+  border-bottom: 1px solid #334155;
+  padding-bottom: 0.75rem;
+}
+
+/* Botão Fechar (X) */
+.btn-close {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-close:hover {
+  color: #ffffff;
+}
+
+/* Itens de Agendamento dentro do Modal */
+.appointment-item-modal {
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  padding: 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.appointment-item-modal p {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  color: #cbd5e1;
+}
+
+.appointment-item-modal p strong {
+  color: #ffffff;
+}
+
+/* Ações (Editar / Excluir) */
+.modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-edit {
+  background-color: #3b82f6;
+  color: #ffffff;
+}
+
+.btn-edit:hover {
+  background-color: #2563eb;
+}
+
+.btn-delete {
+  background-color: #ef4444;
+  color: #ffffff;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626;
+}
+
+/* Remove a linha divisória antiga se houver */
+.appointment-item-modal hr {
+  display: none;
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+}
+
+.btn-icon:hover {
+  background-color: var(--hover-color);
+}
+
+/* Grid dos Dias da Semana */
+.weekdays-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: bold;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.calendar-days-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day-cell {
+  min-height: 90px;
+  background-color: var(--cell-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.calendar-day-cell.has-appointment {
+  border-color: var(--primary-color, #2563eb);
+  background-color: #eff6ff;
+}
+
+/* Subtela / Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: var(--surface-color);
+  padding: 2rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.btn-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
 .btn-secondary {
   padding: 0.5rem 1rem;
   background-color: transparent;
@@ -87,12 +381,6 @@ body {
   gap: 1rem;
   align-items: flex-end;
   margin-bottom: 2rem;
-}
-
-@media (max-width: 768px) {
-  .service-form {
-    grid-template-columns: 1fr;
-  }
 }
 
 .form-group {
@@ -198,18 +486,6 @@ body {
   align-items: flex-end;
 }
 
-@media (max-width: 1024px) {
-  #appointment-form {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 768px) {
-  #appointment-form {
-    grid-template-columns: 1fr;
-  }
-}
-
 /* Estilização para listagem de agendamentos futuros, se houver */
 .appointment-item {
   display: flex;
@@ -231,6 +507,201 @@ body {
 .appointment-info p {
   font-size: 0.85rem;
   color: var(--text-muted);
+}
+
+/*Modal editar salvar*/
+
+.appointment-item-modal .input-control {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1px solid #334155;
+  color: #ffffff;
+  padding: 0.4rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.appointment-item-modal label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.btn-save {
+  background-color: #10b981;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-save:hover {
+  background-color: #059669;
+}
+
+.btn-cancel {
+  background-color: #64748b;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-cancel:hover {
+  background-color: #475569;
+}
+
+/* --- Estilos do Modal de Carregamento (Loading Modal) --- */
+
+#loading-modal {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Quando não estiver com a classe hidden, exibe como flex */
+#loading-modal:not(.hidden) {
+  display: flex !important;
+}
+
+.loading-modal-content {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: center;
+}
+
+.loading-modal-content .spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+#loading-text {
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #333333;
+}
+
+/* Container do filtro de ano */
+.calendar-filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.calendar-year-label {
+  font-size: 5rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+.calendar-filter-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #cbd5e1;
+}
+
+/* Estilo do select de ano */
+.calendar-select {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  outline: none;
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.calendar-select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* ==========================================
+   ESTILOS DO COMPONENTE DE SEMANA (CHECKBOX)
+   ========================================== */
+
+.filter-group.week-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-group.week-navigation .calendar-week-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Força a exibição e o design personalizado do checkbox */
+.filter-group.week-navigation input[type="checkbox"] {
+  appearance: auto; /* Garante que o navegador renderize o box padrão se preferir */
+  -webkit-appearance: checkbox;
+  width: 16px;
+  height: 16px;
+  accent-color: #3b82f6; /* Destaca a seleção com a cor primária do painel */
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Ajuste Responsivo para Dispositivos Móveis */
+@media (max-width: 600px) {
+  .filter-group.week-navigation {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-group.week-navigation .btn-icon {
+    flex: 1;
+    height: 40px;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .service-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 1024px) {
+  #appointment-form {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  #appointment-form {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 1200px) {

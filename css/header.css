@@ -1,0 +1,136 @@
+/* Estilização e Comportamento Fixo do Header */
+.dashboard-header.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 900;
+  box-sizing: border-box;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-header .header-content {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.dashboard-header h1#salon-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8fafc;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
+}
+
+/* Seção de Perfil (Email + Botão Sair) */
+.dashboard-header .user-profile-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
+}
+
+.dashboard-header .user-info-badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  background-color: #0f172a;
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid #334155;
+}
+
+.dashboard-header .user-icon {
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.dashboard-header .user-email {
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.dashboard-header .btn-secondary {
+  background-color: #334155;
+  color: #f8fafc;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.dashboard-header .btn-secondary:hover {
+  background-color: #475569;
+}
+
+/* Ajuste de Espaçamento no Body para o Header Fixo */
+body {
+  padding-top: 70px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Ajustes Responsivos para Dispositivos Móveis */
+@media (max-width: 768px) {
+  .dashboard-header.fixed-header {
+    height: auto;
+    padding: 12px 0;
+  }
+
+  .dashboard-header .header-content {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 12px;
+  }
+
+  .dashboard-header h1#salon-title {
+    max-width: 100%;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+
+  .dashboard-header .user-profile-section {
+    width: 100%;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .dashboard-header .user-info-badge {
+    flex: 1;
+    justify-content: center;
+    padding: 6px 8px;
+    overflow: hidden;
+  }
+
+  .dashboard-header .user-email {
+    font-size: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  body {
+    padding-top: 120px; /* Compensa a altura maior do header em duas linhas no mobile */
+  }
+}

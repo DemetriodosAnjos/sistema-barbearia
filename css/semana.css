@@ -1,0 +1,186 @@
+/* Container de Navegação de Semanas com o Checkbox */
+.filter-group.week-navigation {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-group.week-navigation label {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* Espaço entre o checkbox e o texto "Semana:" */
+  cursor: pointer;
+}
+
+/* Rótulo e Checkbox "Semana:" */
+.filter-group.week-navigation .calendar-week-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #cbd5e1;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Estilização customizada básica para o checkbox */
+.filter-group.week-navigation input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #475569;
+  border-radius: 4px;
+  background-color: #0f172a;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+.filter-group.week-navigation input[type="checkbox"]:checked {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.filter-group.week-navigation input[type="checkbox"]:checked::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+/* Botões de Navegação (Anterior / Próxima) */
+.filter-group.week-navigation .btn-icon {
+  background-color: #0f172a;
+  color: #f8fafc;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+  padding: 0;
+  outline: none;
+}
+
+.filter-group.week-navigation .btn-icon:hover {
+  background-color: #1e293b;
+  border-color: #3b82f6;
+}
+
+.filter-group.week-navigation .btn-icon:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Regra visual para ocultar/isolar os dias do mês quando a visão semanal estiver ativa */
+.calendar-grid.week-view .calendar-day-cell.hidden-by-week-filter {
+  display: none !important;
+}
+
+/* Container principal da visão semanal (grade de colunas por dia) */
+#calendar-days.calendar-week-grid-container,
+.calendar-week-grid-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* Coluna individual de cada dia da semana */
+.week-day-column {
+  background-color: #1e293b; /* Tom escuro compatível com o tema */
+  border: 1px solid #334155;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 140px;
+}
+
+/* Cabeçalho do dia (ex: Seg - 15) */
+.week-day-header {
+  background-color: #0f172a;
+  color: #f8fafc;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px 8px;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #334155;
+  text-transform: capitalize;
+}
+
+/* Container dos slots de horário */
+.time-slots-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Célula individual de cada horário */
+.time-slot {
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  border-bottom: 1px solid #1e293b;
+  border-top: 1px solid #334155;
+  background-color: #0f172a;
+  transition: background-color 0.2s ease;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Efeito ao passar o mouse em um horário livre */
+.time-slot:hover {
+  background-color: #334155;
+  color: #f8fafc;
+  cursor: pointer;
+}
+
+/* Estilo aplicado quando o horário possui um agendamento */
+.time-slot.booked {
+  background-color: #0284c7;
+  color: #ffffff;
+  border-color: #0369a1;
+  font-weight: 500;
+}
+
+.time-slot.booked:hover {
+  background-color: #0369a1;
+}
+
+/* Badge interna do agendamento dentro do slot */
+.time-slot .appointment-badge {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+/* Ajuste Responsivo para Dispositivos Móveis */
+@media (max-width: 600px) {
+  .filter-group.week-navigation {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-group.week-navigation .btn-icon {
+    flex: 1;
+    height: 40px;
+  }
+}
