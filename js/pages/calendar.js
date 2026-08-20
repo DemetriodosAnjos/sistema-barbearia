@@ -26,16 +26,17 @@ export function setupYearSelector(currentYear, onYearChange) {
     label.style.marginRight = "4px";
     wrapper.appendChild(label);
 
+    const calendarHeader =
+      document.querySelector(".calendar-header") ||
+      document.getElementById("calendar-days")?.parentNode;
+
     const yearSelect = document.createElement("select");
     yearSelect.id = "calendar-year-select";
     yearSelect.className = "calendar-select";
     wrapper.appendChild(yearSelect);
 
-    const calendarHeader =
-      document.querySelector(".calendar-header") ||
-      document.getElementById("calendar-days")?.parentNode;
     if (calendarHeader) {
-      calendarHeader.prepend(wrapper);
+      calendarHeader.appendChild(wrapper);
     }
   }
 
@@ -119,11 +120,14 @@ export function renderCalendar(
     } else {
       const calendarHeader =
         document.querySelector(".calendar-header") || calendarDays.parentNode;
-      calendarHeader.prepend(btnNovoAgendamento);
+      calendarHeader.appendChild(btnNovoAgendamento);
     }
 
     btnNovoAgendamento.addEventListener("click", () => {
-      if (calendarNovoAgendamentoModal) {
+      if (
+        calendarNovoAgendamentoModal &&
+        typeof calendarNovoAgendamentoModal.open === "function"
+      ) {
         calendarNovoAgendamentoModal.open();
       }
     });
@@ -156,8 +160,14 @@ export function renderCalendar(
     dayCell.innerHTML = `<span class="day-number">${day}</span>`;
 
     const dayAppointments = appointments.filter(
-      (app) => app.appointment_date === dateString,
+      (app) =>
+        app.appointment_date &&
+        app.appointment_date.split("T")[0] === dateString,
     );
+
+    const cellDate = new Date(year, month, day, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
 
     if (dayAppointments.length > 0) {
       dayCell.classList.add("has-appointment");
@@ -170,21 +180,37 @@ export function renderCalendar(
       dayCell.addEventListener("click", () => {
         openAppointmentModal(dayAppointments, year, month, session);
       });
+    } else if (cellDate < today) {
+      dayCell.classList.add("past-slot");
+
+      dayCell.addEventListener("click", () => {
+        alert("Data e horário indisponíveis para agendamento.");
+      });
+    } else {
+      dayCell.addEventListener("click", () => {
+        if (
+          calendarNovoAgendamentoModal &&
+          typeof calendarNovoAgendamentoModal.open === "function"
+        ) {
+          calendarNovoAgendamentoModal.open(dateString, "09:00");
+        } else {
+          console.warn("Modal de novo agendamento não inicializado.");
+        }
+      });
     }
 
     calendarDays.appendChild(dayCell);
   }
 }
 
-// Função auxiliar para renderizar a visão semanal com horários das 01:00 às 23:00 e dados do Supabase
+// Função auxiliar para renderizar a visão semanal com horários das 09:00 às 19:00
 function renderWeekViewGrid(appointments, activeStartDate, session) {
   const calendarDaysContainer = document.getElementById("calendar-days");
   if (!calendarDaysContainer) return;
 
   calendarDaysContainer.innerHTML = "";
-  calendarDaysContainer.className = "calendar-week-grid-container"; // Aplica classe se necessário
+  calendarDaysContainer.className = "calendar-week-grid-container";
 
-  // Calcula os 7 dias da semana a partir da data ativa
   const weekDays = [];
   const startOfWeek = new Date(activeStartDate);
   startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
@@ -207,14 +233,27 @@ function renderWeekViewGrid(appointments, activeStartDate, session) {
     const timeSlotContainer = document.createElement("div");
     timeSlotContainer.className = "time-slots-container";
 
-    // Grade de horários das 01:00 até as 23:00
-    for (let hour = 1; hour <= 23; hour++) {
+    for (let hour = 9; hour <= 19; hour++) {
       const hourSlot = document.createElement("div");
       hourSlot.className = "time-slot";
       const formattedHour = String(hour).padStart(2, "0") + ":00";
       const currentIsoDate = day.toISOString().split("T")[0];
 
-      // Filtra agendamento correspondente a este dia e hora exata
+      const slotDateTime = new Date(
+        day.getFullYear(),
+        day.getMonth(),
+        day.getDate(),
+        hour,
+        0,
+        0,
+      );
+      const now = new Date();
+      const isPast = slotDateTime < now;
+
+      if (isPast) {
+        hourSlot.classList.add("past-slot");
+      }
+
       const matchedAppointment = appointments.find((app) => {
         return (
           app.appointment_date === currentIsoDate &&
@@ -242,6 +281,25 @@ function renderWeekViewGrid(appointments, activeStartDate, session) {
         });
       } else {
         hourSlot.innerHTML = `<span class="slot-time">${formattedHour}</span>`;
+
+        hourSlot.addEventListener("click", () => {
+          if (isPast) {
+            alert("A data e horário indisponíveis para agendamento");
+            return;
+          }
+
+          if (
+            calendarNovoAgendamentoModal &&
+            typeof calendarNovoAgendamentoModal.open === "function"
+          ) {
+            // Garante o contexto correto com .call ou arrow function
+            calendarNovoAgendamentoModal.open(currentIsoDate, formattedHour);
+          } else {
+            console.warn(
+              "Modal de novo agendamento não inicializado no calendário.",
+            );
+          }
+        });
       }
 
       timeSlotContainer.appendChild(hourSlot);
@@ -252,7 +310,7 @@ function renderWeekViewGrid(appointments, activeStartDate, session) {
   });
 }
 
-function openAppointmentModal(
+export function openAppointmentModal(
   appointments,
   currentYear,
   currentMonth,
@@ -403,4 +461,8 @@ export function setupModalListeners() {
       modal.classList.add("hidden");
     }
   });
+}
+
+export function setCalendarModalInstance(modalInstance) {
+  calendarNovoAgendamentoModal = modalInstance;
 }

@@ -172,6 +172,21 @@
   font-size: 0.75rem;
   line-height: 1.2;
 }
+
+.time-slot.past-slot {
+  background-color: #444444 !important; /* Fundo cinza claro */
+  color: #94a3b8 !important; /* Texto apagado */
+  cursor: not-allowed !important; /* Ícone de proibido ao passar o mouse */
+  opacity: 0.7 !important; /* Leve transparência */
+  /*pointer-events: none;  Bloqueia qualquer interação de clique */
+}
+
+/* Opcional: tira o efeito de hover em horários passados */
+.time-slot.past-slot:hover {
+  background-color: #f1f5f9;
+  transform: none;
+}
+
 /* Ajuste Responsivo para Dispositivos Móveis */
 @media (max-width: 600px) {
   .filter-group.week-navigation {

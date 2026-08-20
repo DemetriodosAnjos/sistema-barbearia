@@ -75,7 +75,7 @@ export function initNovoAgendamentoModal({
 
   function populateTimeSlots() {
     selectTime.innerHTML = '<option value="">Selecione o horário...</option>';
-    for (let h = 8; h < 20; h++) {
+    for (let h = 8; h < 19; h++) {
       for (let m = 0; m < 60; m += 15) {
         const time = `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
         selectTime.innerHTML += `<option value="${time}">${time}</option>`;
@@ -84,44 +84,48 @@ export function initNovoAgendamentoModal({
   }
 
   // Eventos de controle de abertura e fechamento
-  function open(selectedDate = null, selectedTime = null) {
-    loadServicesIntoSelect();
-    populateTimeSlots();
+  // Exporte a função ou o objeto do modal
+  window.semanaNovoAgendamentoModal = {
+    open: function (selectedDate = null, selectedTime = null) {
+      loadServicesIntoSelect();
+      populateTimeSlots();
 
-    // Define a data se foi passada pelo clique na semana/calendário
-    if (selectedDate) {
-      const dateInput = modalWrapper.querySelector("#appt-date"); // Ajuste o seletor para o seu input de data
-      if (dateInput) dateInput.value = selectedDate;
-    }
-
-    // Define o horário se foi passado pelo clique no slot
-    if (selectedTime) {
-      const timeSelectOrInput = modalWrapper.querySelector("#appt-time");
-      if (timeSelectOrInput) {
-        // Se for um <select> e a opção exata não existir, cria e adiciona a opção dinamicamente
-        if (timeSelectOrInput.tagName === "SELECT") {
-          const optionExists = Array.from(timeSelectOrInput.options).some(
-            (opt) => opt.value === selectedTime,
-          );
-
-          if (!optionExists) {
-            const newOption = document.createElement("option");
-            newOption.value = selectedTime;
-            newOption.textContent = selectedTime;
-            timeSelectOrInput.appendChild(newOption);
-          }
-        }
-
-        timeSelectOrInput.value = selectedTime;
-
-        // Dispara o evento de mudança caso outros scripts dependam dele
-        timeSelectOrInput.dispatchEvent(new Event("change"));
+      // Define a data se foi passada pelo clique na semana/calendário
+      if (selectedDate) {
+        const dateInput = modalWrapper.querySelector("#appt-date");
+        if (dateInput) dateInput.value = selectedDate;
       }
-    }
 
-    modalWrapper.classList.remove("hidden");
-    modalWrapper.style.display = "flex";
-  }
+      // Define o horário se foi passado pelo clique no slot
+      if (selectedTime) {
+        const timeSelectOrInput = modalWrapper.querySelector("#appt-time");
+        if (timeSelectOrInput) {
+          if (timeSelectOrInput.tagName === "SELECT") {
+            const optionExists = Array.from(timeSelectOrInput.options).some(
+              (opt) => opt.value === selectedTime,
+            );
+
+            if (!optionExists) {
+              const newOption = document.createElement("option");
+              newOption.value = selectedTime;
+              newOption.textContent = selectedTime;
+              timeSelectOrInput.appendChild(newOption);
+            }
+          }
+
+          timeSelectOrInput.value = selectedTime;
+          setTimeout(() => {
+            timeSelectOrInput.dispatchEvent(
+              new Event("change", { bubbles: true }),
+            );
+          }, 0);
+        }
+      }
+
+      modalWrapper.classList.remove("hidden");
+      modalWrapper.style.display = "flex";
+    },
+  };
 
   function close() {
     modalWrapper.classList.add("hidden");
